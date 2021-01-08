@@ -1,0 +1,95 @@
+swagger: '2.0'
+info:
+    version: "1.0"
+    title: Nokia Rest api
+    description: Nokia Rest api
+    contact:
+        name: Shivang Goswami
+        email: shivang.goswami@outlook.com
+schemes:
+    - http
+consumes:
+    - application/json
+produces:
+    - application/json
+tags:
+    - name: nokiaapi
+      description: Operations restapi
+
+
+definitions:
+    error:
+        x-visibility: public
+        type: object
+        required:
+            - message
+        properties:
+            code:
+                type: integer
+                format: int64
+                description: http error code
+                x-example: 401
+            message:
+                type: string
+                description: http error message
+                x-example: forbidden
+    status:
+        type: object
+        properties:
+            status:
+                type: string
+    inputParam:
+        type: object
+        required:
+            - input
+        properties:
+            input: 
+                type: string
+
+basePath: /v1/rest
+paths:
+    /add:
+        post:
+            x-visibility: public
+            tags: [nokiaapi]
+            summary: Store Data 
+            description: 
+                store data
+            parameters:
+                - name: input
+                  in: body
+                  schema:
+                    $ref: '#/definitions/inputParam'
+                  required: true
+            responses:
+                200:
+                    description: status
+                    schema:
+                        $ref: '#/definitions/status'
+                default:
+                    description: Generic error response
+                    schema:
+                        $ref: '#/definitions/error'
+    /delete:
+        delete:
+            x-visibility: public
+            tags: [nokiaapi]
+            summary: Delete Data 
+            description: 
+                Delete data
+            parameters:
+                - name: input
+                  in: body
+                  schema:
+                    $ref: '#/definitions/inputParam'
+                  required: true
+            responses:
+                200:
+                    description: status
+                    schema:
+                        $ref: '#/definitions/status'
+                default:
+                    description: Generic error response
+                    schema:
+                        $ref: '#/definitions/error'
+
